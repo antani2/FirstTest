@@ -13,7 +13,9 @@ import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
 
-    private String monivetoUrl = "https://www.veikkaus.fi/api/v1/sport-games/draws?game-names=MULTISCORE";
+    private String vakioUrl = "https://www.veikkaus.fi/api/v1/sport-games/draws?game-names=SPORT";
+    private String loginUrl = "https://www.veikkaus.fi/api/bff/v1/sessions";
+    private String loginInfoUrl = "https://www.veikkaus.fi/api/v1/players/self/account";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,20 +27,20 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         HttpAsyncTask task = new HttpAsyncTask();
-        task.execute(monivetoUrl);
+        task.execute(vakioUrl);
     }
 
     private class HttpAsyncTask extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... urls) {
 
-            URL myURL = null;
+            URL myURL;
             try {
                 myURL = new URL(urls[0]);
 
                 HttpURLConnection myURLConnection = (HttpURLConnection) myURL.openConnection();
                 myURLConnection.setRequestMethod("GET");
-                myURLConnection.setRequestProperty("XX-ESA-API-Key", "ROBOT");
+                myURLConnection.setRequestProperty("X-ESA-API-Key", "ROBOT");
                 myURLConnection.setRequestProperty("Content-Type", "application/json");
                 myURLConnection.setRequestProperty("Accept", "application/json");
 
